@@ -1,0 +1,71 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="sidebar col-lg-2 col-md-3">
+          <div class="container mt-3">
+            <h2>Wiki</h2>
+            <form class="my-4" action="{% url 'search' %}">
+              <div class="form-group">
+                <input
+                  class="search form-control"
+                  type="text"
+                  name="q"
+                  placeholder="Search Encyclopedia"
+                />
+              </div>
+            </form>
+            <div class="list-group">
+              <a
+                id="nav-home"
+                class="list-group-item list-group-item-action"
+                href="{% url 'index' %}"
+                >Home</a
+              >
+              <a
+                id="nav-new"
+                class="list-group-item list-group-item-action"
+                href=" {% url 'new' %} "
+                >Create New Page</a
+              >
+              <a
+                id="nav-rand"
+                class="list-group-item list-group-item-action"
+                href="{% url 'rand' %}"
+                >Random Page</a
+              >
+            </div>
+            <script>
+              let active = "{% block page_active %}{% endblock %}";
+              if (active) {
+                document
+                  .querySelector("#nav-" + active)
+                  .classList.add("active");
+              }
+            </script>
+            {% block nav %} {% endblock %}
+          </div>
+        </div>
+        <div class="main col-lg-10 col-md-9">
+          <div class="container mt-3">
+            {% block body %} {% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

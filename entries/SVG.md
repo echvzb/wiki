@@ -1,0 +1,1 @@
+# Scale Vector Graphics (SVG)
